@@ -362,7 +362,7 @@
         const db = firebase.database();
 
         let products = [];
-        let cart = [];
+        let cart = JSON.parse(localStorage.getItem('my_eshop_cart')) || []; // Cart persistance
         let orders = [];
 
         db.ref('products').on('value', (snapshot) => {
@@ -376,6 +376,10 @@
             orders = data ? Object.values(data) : [];
             renderAllTrackingOrders(orders);
         });
+
+        window.onload = function() {
+            updateCartUI();
+        }
 
         function showToast(message) {
             const toast = document.getElementById('custom-toast');
@@ -490,6 +494,7 @@
             if(!p) return;
             const exist = cart.find(item => item.id == id);
             if(exist) { exist.qty++; } else { cart.push({...p, qty: 1}); }
+            saveCart();
             updateCartUI();
             showToast('পণ্যটি কার্টে যোগ করা হয়েছে!');
         }
@@ -497,24 +502,30 @@
         function changeQty(index, delta) {
             cart[index].qty += delta;
             if(cart[index].qty <= 0) cart.splice(index, 1);
+            saveCart();
             updateCartUI();
         }
 
         function removeFromCart(index) {
             cart.splice(index, 1);
+            saveCart();
             updateCartUI();
             showToast('পণ্যটি কার্ট থেকে সরিয়ে ফেলা হয়েছে!');
         }
 
-        /* ORDER SINGLE ITEM DIRECTLY FROM CART ITEM */
         function orderSingleItem(index) {
             const item = cart[index];
             cart = [item];
+            saveCart();
             updateCartUI();
             goToOrderPage();
         }
 
-        /* UPDATED CART ITEM WITH 2 BUTTONS: ORDER & DELETE */
+        function saveCart() {
+            localStorage.setItem('my_eshop_cart', JSON.stringify(cart));
+        }
+
+        /* CART UI WITH ORDER & DELETE BUTTONS FOR EACH ITEM */
         function updateCartUI() {
             const container = document.getElementById('cart-items-container');
             container.innerHTML = '';
@@ -615,6 +626,7 @@
             
             db.ref('orders/' + orderId).set(orderData);
             cart = []; 
+            saveCart();
             updateCartUI(); 
             showToast(`অর্ডার সফল! আইডি: ${orderId}`);
             switchPage('tracking');
