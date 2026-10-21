@@ -71,13 +71,42 @@
             </div>
         </section>
 
+        <!-- Categories Icons -->
+        <section class="container mx-auto px-3 my-4">
+            <div class="grid grid-cols-5 gap-2 text-center">
+                <div onclick="filterByCategory('mobile')" class="bg-white p-2.5 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center cursor-pointer hover:border-orange-300">
+                    <div class="w-9 h-9 bg-orange-50 text-orange-500 rounded-full flex items-center justify-center mb-1"><i class="fas fa-mobile-alt"></i></div>
+                    <span class="text-[10px] font-semibold">মোবাইল</span>
+                </div>
+                <div onclick="filterByCategory('fashion')" class="bg-white p-2.5 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center cursor-pointer hover:border-orange-300">
+                    <div class="w-9 h-9 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mb-1"><i class="fas fa-tshirt"></i></div>
+                    <span class="text-[10px] font-semibold">ফ্যাশন</span>
+                </div>
+                <div onclick="filterByCategory('gadget')" class="bg-white p-2.5 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center cursor-pointer hover:border-orange-300">
+                    <div class="w-9 h-9 bg-green-50 text-green-600 rounded-full flex items-center justify-center mb-1"><i class="fas fa-headphones"></i></div>
+                    <span class="text-[10px] font-semibold">গ্যাজেট</span>
+                </div>
+                <div onclick="filterByCategory('watch')" class="bg-white p-2.5 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center cursor-pointer hover:border-orange-300">
+                    <div class="w-9 h-9 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center mb-1"><i class="fas fa-clock"></i></div>
+                    <span class="text-[10px] font-semibold">ঘড়ি</span>
+                </div>
+                <div onclick="filterByCategory('others')" class="bg-white p-2.5 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center cursor-pointer hover:border-orange-300">
+                    <div class="w-9 h-9 bg-rose-50 text-rose-600 rounded-full flex items-center justify-center mb-1"><i class="fas fa-book"></i></div>
+                    <span class="text-[10px] font-semibold">অন্যান্য</span>
+                </div>
+            </div>
+        </section>
+
         <!-- Product Grid -->
-        <section class="container mx-auto px-3 my-6">
+        <section class="container mx-auto px-3 mb-6">
             <div class="flex justify-between items-center mb-3">
                 <h2 id="grid-title" class="text-base font-bold text-gray-800 flex items-center gap-2">
                     <span class="w-1.5 h-4 bg-orange-500 rounded-full inline-block"></span>
                     সকল পণ্য
                 </h2>
+                <button id="clear-filter-btn" onclick="displayProducts(products); document.getElementById('grid-title').innerText='সকল পণ্য'; this.classList.add('hidden');" class="text-xs text-orange-600 font-bold hidden">
+                    সব পণ্য দেখুন <i class="fas fa-arrows-rotate"></i>
+                </button>
             </div>
             <div id="product-grid" class="grid grid-cols-2 md:grid-cols-4 gap-3"></div>
         </section>
@@ -91,20 +120,77 @@
         <div id="product-details-content" class="bg-white rounded-2xl shadow-sm border p-4 space-y-4"></div>
     </main>
 
-    <!-- PAGE 3: TRACKING (ALL ORDERS VISIBLE BY DEFAULT + SEARCH FILTER) -->
+    <!-- PAGE 2: CATEGORIES PAGE -->
+    <main id="page-categories" class="page-screen container mx-auto px-3 mt-4">
+        <h2 class="text-lg font-bold text-gray-800 mb-4 border-b pb-2"><i class="fas fa-th-large text-orange-500 mr-2"></i>সকল ক্যাটাগরি</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div onclick="filterByCategory('mobile')" class="bg-white p-4 rounded-xl shadow-sm border flex items-center justify-between cursor-pointer hover:border-orange-400">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-xl flex items-center justify-center text-xl"><i class="fas fa-mobile-alt"></i></div>
+                    <div><h3 class="font-bold text-sm">মোবাইল ও এক্সেসরিজ</h3><p class="text-xs text-gray-400">চার্জার, কেসিং, প্রটেক্টর</p></div>
+                </div>
+                <i class="fas fa-chevron-right text-gray-300"></i>
+            </div>
+            <div onclick="filterByCategory('fashion')" class="bg-white p-4 rounded-xl shadow-sm border flex items-center justify-between cursor-pointer hover:border-orange-400">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center text-xl"><i class="fas fa-tshirt"></i></div>
+                    <div><h3 class="font-bold text-sm">ফ্যাশন ও ক্লথিং</h3><p class="text-xs text-gray-400">শার্ট, প্যান্ট, জুতো</p></div>
+                </div>
+                <i class="fas fa-chevron-right text-gray-300"></i>
+            </div>
+            <div onclick="filterByCategory('gadget')" class="bg-white p-4 rounded-xl shadow-sm border flex items-center justify-between cursor-pointer hover:border-orange-400">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-green-100 text-green-600 rounded-xl flex items-center justify-center text-xl"><i class="fas fa-headphones"></i></div>
+                    <div><h3 class="font-bold text-sm">স্মার্ট গ্যাজেটস</h3><p class="text-xs text-gray-400">স্পিকার, এয়ারপডস</p></div>
+                </div>
+                <i class="fas fa-chevron-right text-gray-300"></i>
+            </div>
+            <div onclick="filterByCategory('watch')" class="bg-white p-4 rounded-xl shadow-sm border flex items-center justify-between cursor-pointer hover:border-orange-400">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center text-xl"><i class="fas fa-clock"></i></div>
+                    <div><h3 class="font-bold text-sm">স্মার্ট ওয়াচ</h3><p class="text-xs text-gray-400">ফিটনেস ট্র্যাকার</p></div>
+                </div>
+                <i class="fas fa-chevron-right text-gray-300"></i>
+            </div>
+            <div onclick="filterByCategory('others')" class="bg-white p-4 rounded-xl shadow-sm border flex items-center justify-between cursor-pointer hover:border-orange-400">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center text-xl"><i class="fas fa-book"></i></div>
+                    <div><h3 class="font-bold text-sm">অন্যান্য আইটেমস</h3><p class="text-xs text-gray-400">বই ও বিবিধ পণ্য</p></div>
+                </div>
+                <i class="fas fa-chevron-right text-gray-300"></i>
+            </div>
+        </div>
+    </main>
+
+    <!-- PAGE 3: TRACKING (ALL ORDERS LIST + OPTIONAL SEARCH) -->
     <main id="page-tracking" class="page-screen container mx-auto px-3 mt-4">
         <div class="bg-white p-5 rounded-2xl shadow-sm border max-w-lg mx-auto">
             <h2 class="text-base font-bold text-gray-800 mb-2 flex items-center gap-2">
                 <i class="fas fa-truck-fast text-orange-500"></i> আপনার অর্ডার ট্র্যাক করুন
             </h2>
-            <p class="text-xs text-gray-500 mb-3">সবগুলো অর্ডার নিচে সিরিয়াল অনুযায়ী রয়েছে। নির্দিষ্ট অর্ডার আইডির জন্য সার্চ করতে পারেন:</p>
+            <p class="text-xs text-gray-500 mb-3">সকল অর্ডার সিরিয়াল অনুযায়ী নিচে রয়েছে। প্রয়োজনে অর্ডার আইডি দিয়ে সার্চ করুন:</p>
             <div class="flex gap-2 mb-4">
-                <input type="text" id="track-input" oninput="searchOrder()" placeholder="যেমন: ORD-1025 বা আপনার নাম" class="w-full border rounded-xl p-2.5 text-xs outline-none focus:ring-2 focus:ring-orange-500">
+                <input type="text" id="track-input" oninput="searchOrder()" placeholder="যেমন: ORD-1025 বা নাম" class="w-full border rounded-xl p-2.5 text-xs outline-none focus:ring-2 focus:ring-orange-500">
                 <button onclick="searchOrder()" class="bg-indigo-600 text-white px-4 py-2.5 rounded-xl text-xs font-bold shrink-0">খুঁজুন</button>
             </div>
 
-            <!-- ALL ORDERS LIST CONTAINER -->
+            <!-- ALL ORDERS CONTAINER -->
             <div id="track-result-list" class="space-y-3"></div>
+        </div>
+    </main>
+
+    <!-- PAGE 4: HELP -->
+    <main id="page-help" class="page-screen container mx-auto px-3 mt-4">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border max-w-md mx-auto text-center">
+            <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto text-4xl mb-4 shadow-inner">
+                <i class="fab fa-whatsapp"></i>
+            </div>
+            <h2 class="text-lg font-bold text-gray-800 mb-2">হোয়াটসঅ্যাপ সাপোর্ট</h2>
+            <p class="text-xs text-gray-500 mb-6">যেকোনো প্রয়োজনে সরাসরি মেসেজ করুন।</p>
+            <a href="https://wa.me/8801566076407" target="_blank" class="block w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3.5 rounded-xl text-xs transition shadow-lg flex items-center justify-center space-x-2">
+                <i class="fab fa-whatsapp text-lg"></i><span>WhatsApp-এ চ্যাট করুন</span>
+            </a>
+            <p class="text-[11px] text-gray-400 mt-3">নম্বর: 01566076407</p>
         </div>
     </main>
 
@@ -146,20 +232,11 @@
                     </div>
                 </div>
 
-                <!-- DISTRICT & THANA FIELDS -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                     <div>
                         <label class="block text-[11px] font-semibold text-gray-600 mb-1">জেলা নির্বাচন করুন *</label>
                         <select id="cust-district" required class="w-full border rounded-lg p-2.5 text-xs outline-none focus:ring-1 focus:ring-orange-500">
-                            <option value="ঢাকা">ঢাকা</option>
-                            <option value="চট্টগ্রাম">চট্টগ্রাম</option>
-                            <option value="বগুড়া">বগুড়া</option>
-                            <option value="রাজশাহী">রাজশাহী</option>
-                            <option value="খুলনা">খুলনা</option>
-                            <option value="সিলেট">সিলেট</option>
-                            <option value="বরিশাল">বরিশাল</option>
-                            <option value="রংপুর">রংপুর</option>
-                            <option value="ময়মনসিংহ">ময়মনসিংহ</option>
+                            <option value="ঢাকা">ঢাকা</option><option value="চট্টগ্রাম">চট্টগ্রাম</option><option value="বগুড়া">বগুড়া</option><option value="রাজশাহী">রাজশাহী</option><option value="খুলনা">খুলনা</option><option value="সিলেট">সিলেট</option><option value="বরিশাল">বরিশাল</option><option value="রংপুর">রংপুর</option><option value="ময়মনসিংহ">ময়মনসিংহ</option>
                         </select>
                     </div>
                     <div>
@@ -168,7 +245,6 @@
                     </div>
                 </div>
 
-                <!-- UNION & VILLAGE FIELDS -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                     <div>
                         <label class="block text-[11px] font-semibold text-gray-600 mb-1">ইউনিয়ন / ওয়ার্ড *</label>
@@ -188,7 +264,6 @@
                     </select>
                 </div>
 
-                <!-- ORDER TOTAL BREAKDOWN BOX -->
                 <div class="bg-gray-50 border p-3 rounded-xl text-xs space-y-1">
                     <div class="flex justify-between"><span>পণ্যের দাম:</span><span id="modal-subtotal">৳ 0</span></div>
                     <div class="flex justify-between"><span>ডেলিভারি চার্জ:</span><span id="modal-delivery">৳ 60</span></div>
@@ -332,6 +407,20 @@
             });
         }
 
+        function filterByCategory(cat) {
+            switchPage('home');
+            const filtered = products.filter(p => p.category === cat);
+            document.getElementById('grid-title').innerText = 'ফিল্টারকৃত পণ্য';
+            document.getElementById('clear-filter-btn').classList.remove('hidden');
+            displayProducts(filtered);
+        }
+
+        function handleSearch(query) {
+            switchPage('home');
+            const filtered = products.filter(p => p.name.toLowerCase().includes(query.toLowerCase()) || (p.code && p.code.toLowerCase().includes(query.toLowerCase())));
+            displayProducts(filtered);
+        }
+
         function openProductDetail(id) {
             const p = products.find(item => item.id == id);
             if(!p) return;
@@ -433,7 +522,6 @@
             document.getElementById('delivery-charge-text').innerText = '৳ ' + deliveryCharge;
             document.getElementById('grand-total-price').innerText = '৳ ' + grandTotal;
 
-            // Modal Update
             if(document.getElementById('modal-subtotal')) {
                 document.getElementById('modal-subtotal').innerText = '৳ ' + subtotal;
                 document.getElementById('modal-delivery').innerText = '৳ ' + deliveryCharge;
@@ -492,7 +580,6 @@
             switchPage('tracking');
         }
 
-        /* TRACKING: DISPLAY ALL ORDERS SERIAL BY SERIAL WITHOUT MANDATORY CODE */
         function renderAllTrackingOrders(orderList) {
             const container = document.getElementById('track-result-list');
             if(!container) return;
